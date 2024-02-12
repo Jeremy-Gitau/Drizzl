@@ -1,5 +1,12 @@
 name: Build Gradle
-on: push
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
   build-gradle:
     runs-on: ubuntu-latest
@@ -19,3 +26,5 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
+      - name: Run tests with Gradle Wrapper
+        run: ./gradlew check
