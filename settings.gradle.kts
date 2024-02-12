@@ -15,4 +15,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Drizzl"
 include(":app")
- 
+include(":data")
+include(":presentation")
+include(":domain")
+include(":remote")

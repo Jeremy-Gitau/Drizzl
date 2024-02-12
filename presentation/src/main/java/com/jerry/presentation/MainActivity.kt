@@ -1,4 +1,4 @@
-package com.jerry.drizzl
+package com.jerry.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.jerry.drizzl.ui.theme.DrizzlTheme
+import com.jerry.presentation.ui.theme.DrizzlTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

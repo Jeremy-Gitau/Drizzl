@@ -1,4 +1,4 @@
-package com.jerry.drizzl.ui.theme
+package com.jerry.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
