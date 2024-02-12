@@ -1,26 +1,20 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.kspDevtools)
 }
 
 android {
-    namespace = "com.jerry.drizzl"
+    namespace = "com.jerry.sources.remote"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.jerry.drizzl"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -39,20 +33,13 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
 
     implementation(libs.core.ktx)
-
+    implementation(libs.appcompat)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -60,4 +47,12 @@ dependencies {
     //hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+
+    // Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.json)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
 }

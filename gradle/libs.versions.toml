@@ -1,19 +1,33 @@
 [versions]
 agp = "8.2.0-alpha15"
+hilt-android = "2.48"
 kotlin = "1.8.10"
 core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
+ktor = "2.3.8"
 lifecycle-runtime-ktx = "2.7.0"
 activity-compose = "1.8.2"
 compose-bom = "2023.03.00"
+appcompat = "1.6.1"
+material = "1.11.0"
+ksp = "1.8.10-1.0.9"
+serialization_plugin = "1.8.10"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt-android" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
+ktor-client-json = { module = "io.ktor:ktor-client-json", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
@@ -24,8 +38,13 @@ ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
+kspDevtools = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+serializationPlugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization_plugin" }

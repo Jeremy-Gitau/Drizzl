@@ -1,4 +1,4 @@
-package com.jerry.drizzl.ui.theme
+package com.jerry.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
