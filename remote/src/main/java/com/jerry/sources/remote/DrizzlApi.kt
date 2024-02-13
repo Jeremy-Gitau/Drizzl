@@ -1,5 +1,6 @@
 package com.jerry.sources.remote
 
+import com.jerry.sources.remote.BuildConfig.*
 import com.jerry.sources.remote.models.CurrentWeatherDTO
 import com.jerry.sources.remote.models.Endpoints
 import com.jerry.sources.remote.models.NetworkResult
