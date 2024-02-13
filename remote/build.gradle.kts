@@ -22,8 +22,8 @@ android {
         val properties = Properties()
         properties.load(project.rootProject.file("local.properties").inputStream())
 
-        properties.getProperty("apikey")?.let { buildConfigField("String", "apikey", it) }
-        properties.getProperty("baseurl")?.let { buildConfigField("String", "baseurl", it) }
+        buildConfigField("String", "apikey", properties.getProperty("apikey"))
+        buildConfigField("String", "baseurl", properties.getProperty("baseurl"))
     }
 
     buildTypes {
