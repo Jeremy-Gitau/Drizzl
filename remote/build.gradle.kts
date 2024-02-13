@@ -1,9 +1,12 @@
+import java.util.Properties
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.kspDevtools)
+    alias(libs.plugins.serializationPlugin)
 }
 
 android {
@@ -15,6 +18,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        buildConfigField("String", "apikey", properties.getProperty("apikey"))
+        buildConfigField("String", "baseurl", properties.getProperty("baseurl"))
     }
 
     buildTypes {
@@ -32,6 +41,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
