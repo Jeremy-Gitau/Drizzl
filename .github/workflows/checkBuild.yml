@@ -34,8 +34,9 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Create local.properties file
         run: |
-          echo "apikey=eb23b44ae07d49a091262308241002" >> local.properties
-          echo "baseurl=https://api.weatherapi.com/v1" >> local.properties
+          touch local.properties
+          echo "apikey=apikey"
+          echo "baseurl=baseurl"
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         with:
