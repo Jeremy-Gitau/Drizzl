@@ -1,5 +1,6 @@
 package com.jerry.sources.remote
 
+import com.jerry.sources.remote.BuildConfig.*
 import com.jerry.sources.remote.models.CurrentWeatherDTO
 import com.jerry.sources.remote.models.Endpoints
 import com.jerry.sources.remote.models.NetworkResult
@@ -18,7 +19,7 @@ class DrizzlApi @Inject constructor(
     ): NetworkResult<CurrentWeatherDTO.ResponseBody> =
         safeApiCall {
 
-            val apikey = BuildConfig.apikey
+            val apikey = apikey
 
             val response =
                 client.get(Endpoints.GetCurrentWeather(apikey = apikey, query = query).url)
