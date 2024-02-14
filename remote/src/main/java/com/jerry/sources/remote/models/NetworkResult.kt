@@ -6,8 +6,8 @@ sealed interface NetworkResult<out T> {
         val data: T
     ) : NetworkResult<T>
 
-    data class Error<out T>(
-        val message: T
+    data class Error(
+        val message: String
     ) : NetworkResult<Nothing>
 }
 
