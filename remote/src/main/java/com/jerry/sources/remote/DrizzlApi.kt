@@ -14,12 +14,12 @@ class DrizzlApi @Inject constructor(
     private val client: HttpClient
 ) {
 
+    private val apikey = BuildConfig.apikey
+
     suspend fun getCurrentWeather(
         query: String
     ): NetworkResult<CurrentWeatherDTO.ResponseBody> =
         safeApiCall {
-
-            val apikey = apikey
 
             val response =
                 client.get(Endpoints.GetCurrentWeather(apikey = apikey, query = query).url)
