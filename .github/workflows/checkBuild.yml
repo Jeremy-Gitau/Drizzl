@@ -47,13 +47,5 @@ jobs:
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
-        with: 
-            name: build-artifacts
-            path: /home/runner/work/Drizzl/Drizzl/remote/build/generated/source/buildConfig/debug/com/jerry/sources/remote/
-
-
-
       - name: Run tests with Gradle Wrapper
         run: ./gradlew check
