@@ -1,10 +1,10 @@
 package com.jerry.sources.remote.models
 
-import com.jerry.sources.remote.BuildConfig
+import com.jerry.sources.remote.BuildConfig.baseurl
 
 sealed class Endpoints(private val path: String) {
 
-    private val baseUrl = BuildConfig.baseurl
+    private val baseUrl = baseurl
 
     val url: String
         get() = "$baseUrl$path"
