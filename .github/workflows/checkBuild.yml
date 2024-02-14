@@ -49,9 +49,8 @@ jobs:
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
-        with: |
+        with: 
             name: build-artifacts
-            path: build/outputs/apk/debug/
             path: /home/runner/work/Drizzl/Drizzl/remote/build/generated/source/buildConfig/debug/com/jerry/sources/remote/
 
 
