@@ -42,7 +42,7 @@ dependencies {
     implementation(libs.material)
     implementation(project(":remote"))
     implementation(project(":domain"))
-    implementation(project(":domain"))
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
