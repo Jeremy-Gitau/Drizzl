@@ -27,7 +27,24 @@ fun WeatherDomain.toResponseBody() = CurrentWeatherDTO.ResponseBody(
             text = this.current.condition.text,
             icon = this.current.condition.icon,
             code = this.current.condition.code
-        )
+        ),
+        wind_mph = this.current.wind_mph,
+        wind_kph = this.current.wind_kph,
+        wind_degree = this.current.wind_degree,
+        wind_dir = this.current.wind_dir,
+        pressure_mb = this.current.pressure_mb,
+        pressure_in = this.current.pressure_in,
+        precip_mm = this.current.precip_mm,
+        precip_in = this.current.precip_in,
+        humidity = this.current.humidity,
+        cloud = this.current.cloud,
+        feelslike_c = this.current.feelslike_c,
+        feelslike_f = this.current.feelslike_f,
+        vis_km = this.current.vis_km,
+        vis_miles = this.current.vis_miles,
+        uv = this.current.uv,
+        gust_mph = this.current.gust_mph,
+        gust_kph = this.current.gust_kph
     )
 )
 
@@ -52,6 +69,23 @@ fun CurrentWeatherDTO.ResponseBody.toDomain() = WeatherDomain(
             text = this.current.condition.text,
             icon = this.current.condition.icon,
             code = this.current.condition.code
-        )
+        ),
+        wind_mph = this.current.wind_mph,
+        wind_kph = this.current.wind_kph,
+        wind_degree = this.current.wind_degree,
+        wind_dir = this.current.wind_dir,
+        pressure_mb = this.current.pressure_mb,
+        pressure_in = this.current.pressure_in,
+        precip_mm = this.current.precip_mm,
+        precip_in = this.current.precip_in,
+        humidity = this.current.humidity,
+        cloud = this.current.cloud,
+        feelslike_c = this.current.feelslike_c,
+        feelslike_f = this.current.feelslike_f,
+        vis_km = this.current.vis_km,
+        vis_miles = this.current.vis_miles,
+        uv = this.current.uv,
+        gust_mph = this.current.gust_mph,
+        gust_kph = this.current.gust_kph
     )
 )

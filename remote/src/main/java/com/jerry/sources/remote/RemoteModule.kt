@@ -8,6 +8,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 import javax.inject.Singleton
 
 @Module
@@ -18,7 +19,9 @@ object RemoteModule {
     @Provides
     fun providesHttpClient() = HttpClient(OkHttp){
         install(ContentNegotiation){
-            json()
+            json(json = Json {
+                encodeDefaults = false
+            })
         }
     }
 }

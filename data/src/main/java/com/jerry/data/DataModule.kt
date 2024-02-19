@@ -1,14 +1,13 @@
 package com.jerry.data
 
-import android.app.Activity
-import com.jerry.data.models.PermissionHandlerImpl
+import android.content.Context
 import com.jerry.data.repository.WeatherRepositoryImpl
-import com.jerry.domain.repository.PermissionHandler
 import com.jerry.domain.repository.WeatherRepository
 import com.jerry.sources.remote.DrizzlApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 @Module
@@ -19,5 +18,5 @@ object DataModule {
     fun providesWeatherRepository(api: DrizzlApi): WeatherRepository = WeatherRepositoryImpl(api)
 
     @Provides
-    fun providesPermissionHandler(context: Activity): PermissionHandler = PermissionHandlerImpl(context)
+    fun provideApplicationContext(@ApplicationContext context: Context): Context = context
 }
