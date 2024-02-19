@@ -1,7 +1,7 @@
 package com.jerry.sources.remote
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.jerry.sources.remote.models.CurrentWeatherDTO
+import com.jerry.sources.remote.models.WeatherDTO
 import com.jerry.sources.remote.models.NetworkResult
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
@@ -77,7 +77,7 @@ class DrizzlApiTest {
 
         // Handle the case when decoding fails
         val expected = try {
-            json.decodeFromString(CurrentWeatherDTO.ResponseBody.serializer(), responseBody)
+            json.decodeFromString(WeatherDTO.ResponseBody.serializer(), responseBody)
         } catch (e: Exception) {
             // Return a NetworkResult.Error if decoding fails
             NetworkResult.Error("Failed to decode response: ${e.message}")

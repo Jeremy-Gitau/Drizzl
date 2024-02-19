@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewModelScope
+import com.jerry.domain.models.ForecastDay
+import com.jerry.domain.models.Hour
 import com.jerry.domain.models.WeatherDomain
 import com.jerry.presentation.viewModel.WeatherState
 import com.jerry.presentation.viewModel.WeatherViewModel
@@ -113,8 +115,10 @@ fun WeatherScreenContent(
             WeatherDetails(
                 weatherData = state.weatherData,
                 imageUrl = state.imageUrl!!,
-                formatTime = state.formayTime,
-                formatDay = state.formatDay
+                formatTime = state.formatTime,
+                formatDay = state.formatDay,
+                forecastData = state.forecastData,
+                hourData = state.hourData
             )
         }
     }
@@ -125,6 +129,8 @@ fun WeatherScreenContent(
 @Composable
 fun WeatherDetails(
     weatherData: WeatherDomain,
+    forecastData: List<ForecastDay>?,
+    hourData: List<List<Hour>>?,
     imageUrl: String,
     formatTime: String?,
     formatDay: String?
@@ -144,10 +150,12 @@ fun WeatherDetails(
                 formatTime = formatTime
             )
 
-            OutlinedCardWithIconAndText(
+            WeatherItems(
                 weatherData = weatherData,
                 imageUrl = imageUrl
             )
+
+            ForecastItems(hourData = hourData)
         }
 
 

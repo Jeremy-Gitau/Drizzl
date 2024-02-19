@@ -1,6 +1,6 @@
 package com.jerry.sources.remote
 
-import com.jerry.sources.remote.models.CurrentWeatherDTO
+import com.jerry.sources.remote.models.WeatherDTO
 import com.jerry.sources.remote.models.Endpoints
 import com.jerry.sources.remote.models.NetworkResult
 import com.jerry.sources.remote.models.safeApiCall
@@ -19,14 +19,14 @@ class DrizzlApi @Inject constructor(
 
     suspend fun getCurrentWeather(
         query: String
-    ): NetworkResult<CurrentWeatherDTO.ResponseBody> =
+    ): NetworkResult<WeatherDTO.ResponseBody> =
         safeApiCall {
 
             val response: HttpResponse =
                 client.get(Endpoints.GetCurrentWeather(apikey = apikey, query = query).url)
 
             val json = Json { ignoreUnknownKeys = true }
-            val currentWeather: CurrentWeatherDTO.ResponseBody =
+            val currentWeather: WeatherDTO.ResponseBody =
                 json.decodeFromString(response.bodyAsText())
 
             currentWeather

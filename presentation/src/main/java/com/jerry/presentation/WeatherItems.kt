@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.jerry.domain.models.WeatherDomain
 
 @Composable
-fun OutlinedCardWithIconAndText(
+fun WeatherItems(
     weatherData: WeatherDomain,
     imageUrl: String
 ) {
@@ -35,21 +35,21 @@ fun OutlinedCardWithIconAndText(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            OutlinedCardDetails(
+            WeatherItem(
                 icon = painterResource(id = R.drawable._wind),
                 value = weatherData.current.wind_kph.toString(),
                 unit = "km/h",
                 text = "Wind"
             )
 
-            OutlinedCardDetails(
+            WeatherItem(
                 icon = painterResource(id = R.drawable.humidity),
                 value = weatherData.current.humidity.toString(),
                 unit = "%",
                 text = "Humidity"
             )
 
-            OutlinedCardDetails(
+            WeatherItem(
                 icon = imageLoader(imageUrl = imageUrl),
                 value = weatherData.current.feelslike_c.toString(),
                 unit = "\u00B0C",
@@ -60,7 +60,7 @@ fun OutlinedCardWithIconAndText(
 }
 
 @Composable
-fun OutlinedCardDetails(
+fun WeatherItem(
     icon: Painter,
     unit: String? = null,
     value: String,

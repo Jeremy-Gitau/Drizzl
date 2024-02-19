@@ -12,6 +12,6 @@ sealed class Endpoints(private val path: String) {
     data class GetCurrentWeather(
         val query: String,
         val apikey: String
-    ) : Endpoints("/current.json?q=$query&key=$apikey")
+    ) : Endpoints("/forecast.json?q=$query&key=$apikey")
 
 }

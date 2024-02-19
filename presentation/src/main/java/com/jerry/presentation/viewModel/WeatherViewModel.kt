@@ -12,6 +12,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.jerry.domain.models.DataResult
+import com.jerry.domain.models.ForecastDay
+import com.jerry.domain.models.Hour
 import com.jerry.domain.models.WeatherDomain
 import com.jerry.domain.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +23,9 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
 import javax.inject.Inject
 
 data class WeatherState(
@@ -32,7 +37,9 @@ data class WeatherState(
     val longitude: Double? = null,
     val imageUrl: String? = null,
     val formatDay: String? = null,
-    val formayTime: String? = null
+    val formatTime: String? = null,
+    val forecastData: List<ForecastDay>? = null,
+    val hourData: List<List<Hour>>? = null
 )
 
 @HiltViewModel
@@ -65,7 +72,13 @@ class WeatherViewModel @Inject constructor(
                     val weatherResult = weatherRepo.getCurrentWeather(location).also {
                         Log.e("locationData", location)
                     }
+
+                    //check if fetch weather data is successful and change some states
                     if (weatherResult is DataResult.Success) {
+
+                        // Extract forecast data
+                        val forecastData = weatherResult.data.forecast.forecastday
+
                         _state.value = _state.value.copy(
 
                             weatherData = weatherResult.data.also {
@@ -73,8 +86,26 @@ class WeatherViewModel @Inject constructor(
                             },
                             isLoading = false,
                             formatDay = state.value.weatherData?.location?.let { formatDay(it.localtime) },
-                            formayTime = state.value.weatherData?.location?.let { formatTime(it.localtime) }
+                            formatTime = state.value.weatherData?.location?.let { formatTime(it.localtime) },
+                            forecastData = forecastData
                         )
+
+                        forecastData.let { forecast ->
+
+                            val hourDataList = mutableListOf<List<Hour>>()
+                            // Iterate through each forecast day
+                            forecast.forEach { forecastDay ->
+                                // Access the hour data for each forecast day
+                                val hourData = forecastDay.hour
+
+                                hourDataList.add(hourData)
+
+                                _state.value = _state.value.copy(
+                                    hourData = hourDataList
+                                )
+                            }
+                        }
+
                         if (!_state.value.weatherData?.current?.condition?.icon?.startsWith("https://")!!) {
                             _state.value = _state.value.copy(
                                 imageUrl = "https://${
@@ -155,15 +186,20 @@ class WeatherViewModel @Inject constructor(
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun formatDay(localTime: String): String {
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-        val dateString = LocalDate.parse(localTime, formatter)
-        val parsedDate = LocalDate.parse(dateString.toString())
+        return try {
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm")
+            val dateString = LocalDate.parse(localTime, formatter)
+            val parsedDate = LocalDate.parse(dateString.toString())
 
-        // Define a formatter to format the date as the day of the week (e.g., "Monday")
-        val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
+            // Define a formatter to format the date as the day of the week (e.g., "Monday")
+            val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEEE")
 
-        // Format the parsed date as the day of the week
-        return parsedDate.format(dayOfWeekFormatter)
+            // Format the parsed date as the day of the week
+            parsedDate.format(dayOfWeekFormatter)
+        } catch (e: DateTimeParseException) {
+            Log.e("DateTimeParseException", "Error parsing date: $localTime")
+            ""
+        }
 
     }
 
@@ -171,8 +207,15 @@ class WeatherViewModel @Inject constructor(
     private fun formatTime(localTime: String): String {
 
         // Parse the input date-time string
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-        val dateTime = LocalTime.parse(localTime, formatter)
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm")
+
+        // Parse the time string with optional hour-of-day field (H)
+        val optionalFormatter = DateTimeFormatterBuilder()
+            .append(formatter)
+            .parseDefaulting(ChronoField.HOUR_OF_DAY, 0) // Default to 0 if hour is missing
+            .toFormatter()
+
+        val dateTime = LocalTime.parse(localTime, optionalFormatter)
 
         // Format the time
         return dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
