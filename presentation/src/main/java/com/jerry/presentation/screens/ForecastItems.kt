@@ -1,4 +1,4 @@
-package com.jerry.presentation
+package com.jerry.presentation.screens
 
 import android.os.Build
 import android.util.Log
@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jerry.domain.models.Hour
+import com.jerry.presentation.imageLoader
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -66,11 +67,8 @@ fun ForecastItem(
 
             val isCurrentHour = currentHour == hourOfDay
 
-            val imageUrl = if (!hour.condition.icon.startsWith("https://")) {
-                "https://${ hour.condition.icon.substringAfter("http://")}"
-            } else {
-                hour.condition.icon
-            }
+            val imageUrl = hour.condition.icon
+
 
             Card(
                 modifier = Modifier

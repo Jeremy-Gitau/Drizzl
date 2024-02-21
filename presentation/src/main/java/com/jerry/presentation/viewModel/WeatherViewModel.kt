@@ -39,7 +39,8 @@ data class WeatherState(
     val formatDay: String? = null,
     val formatTime: String? = null,
     val forecastData: List<ForecastDay>? = null,
-    val hourData: List<List<Hour>>? = null
+    val hourData: List<List<Hour>>? = null,
+    val formattedForecastDayDates: List<String>? = null
 )
 
 @HiltViewModel
@@ -90,30 +91,41 @@ class WeatherViewModel @Inject constructor(
                             forecastData = forecastData
                         )
 
+                        //handle the forecast data and store their states in weather state
                         forecastData.let { forecast ->
 
                             val hourDataList = mutableListOf<List<Hour>>()
+                            val formattedDates = mutableListOf<String>()
                             // Iterate through each forecast day
                             forecast.forEach { forecastDay ->
                                 // Access the hour data for each forecast day
                                 val hourData = forecastDay.hour
 
                                 hourDataList.add(hourData)
+                                formattedDates.add(formatDay(forecastDay.date))
 
                                 _state.value = _state.value.copy(
-                                    hourData = hourDataList
-                                )
+                                    hourData = hourDataList,
+                                    formattedForecastDayDates = formattedDates
+                                ).also {
+                                    Log.e("formattedDates", formattedDates.toString())
+                                }
+
+
                             }
                         }
 
                         if (!_state.value.weatherData?.current?.condition?.icon?.startsWith("https://")!!) {
                             _state.value = _state.value.copy(
                                 imageUrl = "https://${
-                                    state.value.weatherData!!.current.condition.icon.substringAfter("http://")
+                                    state.value.weatherData!!.current.condition.icon.substringAfter(
+                                        "http://"
+                                    )
                                 }"
                             )
                         } else {
-                            _state.value = _state.value.copy( imageUrl = _state.value.weatherData!!.current.condition.icon)
+                            _state.value =
+                                _state.value.copy(imageUrl = _state.value.weatherData!!.current.condition.icon)
                         }
                     } else {
                         _state.value = _state.value.copy(
@@ -187,7 +199,13 @@ class WeatherViewModel @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     private fun formatDay(localTime: String): String {
         return try {
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm")
+            val formatter = if (localTime.contains(":")) {
+                // If the string contains a colon (':'), it includes time information
+                DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm")
+            } else {
+                // If no colon is present, assume it's just a date
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            }
             val dateString = LocalDate.parse(localTime, formatter)
             val parsedDate = LocalDate.parse(dateString.toString())
 

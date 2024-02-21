@@ -8,9 +8,17 @@ import coil.request.ImageRequest
 
 @Composable
 fun imageLoader(imageUrl: String): Painter {
+
+    val url = if (!imageUrl.startsWith("https://")){
+        "https://${ imageUrl.substringAfter("http://")}"
+    }else{
+        imageUrl
+    }
+
+
     val imagePainter =
         rememberAsyncImagePainter(
-            ImageRequest.Builder(LocalContext.current).data(data = imageUrl)
+            ImageRequest.Builder(LocalContext.current).data(data = url)
                 .apply(block = fun ImageRequest.Builder.() {
                     crossfade(false)
                     placeholder(R.drawable._16) // Placeholder drawable while loading

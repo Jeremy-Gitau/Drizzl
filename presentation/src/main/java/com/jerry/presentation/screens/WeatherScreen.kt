@@ -1,4 +1,4 @@
-package com.jerry.presentation
+package com.jerry.presentation.screens
 
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -46,7 +48,7 @@ fun WeatherScreen(
         if (isGranted) {
             viewModel.fetchLocation()
             viewModel.viewModelScope.launch {
-                // Add a delay of 3000 milliseconds (3 seconds)
+                // Add a delay of 1000 milliseconds (1 seconds)
                 delay(1000)
                 viewModel.fetchWeatherData()
             }
@@ -118,7 +120,8 @@ fun WeatherScreenContent(
                 formatTime = state.formatTime,
                 formatDay = state.formatDay,
                 forecastData = state.forecastData,
-                hourData = state.hourData
+                hourData = state.hourData,
+                formattedDayDates = state.formattedForecastDayDates
             )
         }
     }
@@ -133,7 +136,8 @@ fun WeatherDetails(
     hourData: List<List<Hour>>?,
     imageUrl: String,
     formatTime: String?,
-    formatDay: String?
+    formatDay: String?,
+    formattedDayDates: List<String>?
 ) {
     Surface(
         modifier = Modifier
@@ -142,8 +146,11 @@ fun WeatherDetails(
         color = colorScheme.surface
     ) {
 
-        Column {
-            ExtendedWeatherCard(
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+        ) {
+            CurrentWeatherItems(
                 weatherData = weatherData,
                 imageUrl = imageUrl,
                 formatDay = formatDay,
@@ -156,6 +163,13 @@ fun WeatherDetails(
             )
 
             ForecastItems(hourData = hourData)
+
+            if (forecastData != null) {
+                SevenDayForecast(
+                    forecastData = forecastData,
+                    formattedDates = formattedDayDates
+                )
+            }
         }
 
 

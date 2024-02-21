@@ -1,4 +1,4 @@
-package com.jerry.presentation
+package com.jerry.presentation.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -24,10 +24,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jerry.domain.models.WeatherDomain
+import com.jerry.presentation.imageLoader
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ExtendedWeatherCard(
+fun CurrentWeatherItems(
     weatherData: WeatherDomain,
     imageUrl: String,
     formatDay: String?,

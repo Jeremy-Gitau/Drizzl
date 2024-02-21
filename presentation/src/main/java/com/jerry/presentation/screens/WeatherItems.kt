@@ -1,4 +1,4 @@
-package com.jerry.presentation
+package com.jerry.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +24,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jerry.domain.models.WeatherDomain
+import com.jerry.presentation.R
+import com.jerry.presentation.imageLoader
 
 @Composable
 fun WeatherItems(
