@@ -28,7 +28,6 @@ Ensure you have obtained an API key from WeatherAPI.com and configured it in the
 
 ## Screen UI
 
-![Screenshot_20240221_212235_light](https://github.com/Jeremy-Gitau/Drizzl/assets/56400436/310d2ac3-76d4-4371-b3e9-a6d51d3d7c4d)  ![Screenshot_20240221_212130](https://github.com/Jeremy-Gitau/Drizzl/assets/56400436/13444586-6833-4077-a1b5-95141d7577e3)
 
 
 
