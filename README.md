@@ -26,6 +26,13 @@ Ensure you have obtained an API key from WeatherAPI.com and configured it in the
 3. The weather information is displayed on the screen, including temperature, humidity, wind speed, etc.
 4. Users can refresh the weather data or change the location if desired.
 
+## Screen UI
+
+![drizzl](https://github.com/Jeremy-Gitau/Drizzl/assets/56400436/61084e07-863d-4b57-92bd-046335292289) ![drizzl_dark](https://github.com/Jeremy-Gitau/Drizzl/assets/56400436/af9e9fbc-87f5-470d-b541-68fcbcf0bbe4)
+
+
+
+
 ## Contribution Guidelines
 
 Contributions to Drizzl are welcome! Before submitting a pull request, please ensure your changes align with the project's coding standards and contribute to improving the app's functionality or user experience.

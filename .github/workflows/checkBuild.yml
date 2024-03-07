@@ -43,7 +43,13 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: '7.3.2'
-
+          
+      - name: Create local.properties file
+        run: |
+          touch local.properties
+          echo "apikey=key"
+          echo "baseurl=key"
+          
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
 
