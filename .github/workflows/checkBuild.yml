@@ -16,6 +16,12 @@ jobs:
       - name: Checkout project sources
         uses: actions/checkout@v2
 
+      - name: Create local.properties file
+        run: |
+          touch local.properties
+          echo "apikey=apikey"
+          echo "baseurl=baseurl"
+          
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -25,7 +31,6 @@ jobs:
       - name: Check Gradle Wrapper
         run: |
           chmod +x ./gradlew
-
       - name: Cache Gradle dependencies
         uses: actions/cache@v2
         with:
@@ -33,7 +38,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-
+    
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         with:
