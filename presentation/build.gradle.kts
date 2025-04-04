@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation(project(":domain"))
+    implementation(libs.play.services.location)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
@@ -65,4 +67,8 @@ dependencies {
     //hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    //coil
+    implementation(libs.coil.compose)
 }
